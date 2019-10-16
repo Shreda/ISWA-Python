@@ -9,10 +9,11 @@ import subprocess
 app = Flask(__name__)
 
 def execBash(bash_command):
-    arg_array = bash_command.split(" ")
-    proc = subprocess.Popen(arg_array, stdout=subprocess.PIPE, shell=True)
-    (out, err) = proc.communicate()
-    return out
+    # arg_array = bash_command.split(" ")
+    output = os.popen(bash_command).read()
+    # proc = subprocess.Popen(arg_array, stdout=subprocess.PIPE, shell=True)
+    # (out, err) = proc.communicate()
+    return output
 
 def createAndSendPasswordReset(address):
     # This is a legacy process which we need to
@@ -92,8 +93,13 @@ def login():
         connection.close()
         if userid:
             token = generateToken(userid["userid"])
-            response_string = '"{}"'.format(token)
-            return make_response(response_string, 200)
+            result = '"{}"'.format(token)
+        else:
+            result = '""'
+    else:
+        return make_response(jsonify({'error': 'Bad Request'}), 400)
+ 
+    return make_response(result, 200)
 
 @app.route("/home", methods=['GET'])
 def home():
@@ -218,12 +224,12 @@ def changePassword():
             cursor = connection.cursor()
             cursor.execute(sql, (password_hash, loggedInUser,))
             connection.commit()
+            connection.close()
             result = "Password updated"
             return make_response(result, 200)
         except:
             result = "Failed to updated password"
             return make_response(result, 500)
-        connection.close()
 
     else:
         result = "Legacy Password Sync Failer. Error: " + command_output
@@ -231,5 +237,5 @@ def changePassword():
     return make_response(result, 500)
 
 if __name__ == '__main__':
-    app.run(host='0.0.0.0', debug=True)
+    app.run(host='0.0.0.0', debug=False)
 

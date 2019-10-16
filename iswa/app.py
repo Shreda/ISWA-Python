@@ -4,12 +4,15 @@ import hashlib
 import hmac
 import base64
 import os
+import subprocess
 
 app = Flask(__name__)
 
 def execBash(bash_command):
-    result = os.system(bash_command)
-    return result
+    arg_array = bash_command.split(" ")
+    proc = subprocess.Popen(arg_array, stdout=subprocess.PIPE, shell=True)
+    (out, err) = proc.communicate()
+    return out
 
 def createAndSendPasswordReset(address):
     # This is a legacy process which we need to
@@ -202,12 +205,12 @@ def changePassword():
     
     # Need to fix this:
     # Run program to sync password for legacy system
-    command = "/usr/bin/iswa_passsync $(date +%s) " + password
-    print("Command executed: {}".format(password))
+    command = "/usr/bin/iswa_passsync " + password
+    print("Command executed: {}".format(command))
     command_output = execBash(command)
     print(command_output)
 
-    if command_output == 0:
+    if command_output.strip() == 'ok':
         password_hash = getMD5(password)
         sql = "UPDATE users SET password = %s WHERE userid = %s"
         try:
@@ -223,10 +226,10 @@ def changePassword():
         connection.close()
 
     else:
-        result = "Legacy Password Sync Failer. Error: "
+        result = "Legacy Password Sync Failer. Error: " + command_output
     
     return make_response(result, 500)
 
-
 if __name__ == '__main__':
     app.run(host='0.0.0.0', debug=True)
+

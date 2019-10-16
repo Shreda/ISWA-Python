@@ -128,6 +128,21 @@ def details():
     message = cursor.fetchone()
     connection.close()
     return make_response(jsonify(message), 200)
+
+@app.route("/profile", methods=['GET'])
+def profile():
+    loggedInUser = getLoggedInUser(request)
+    if loggedInUser == "":
+        return make_response(jsonify({}, 401))
+
+    sql = "SELECT * FROM users WHERE userid = %s"
+
+    connection = get_connection()
+    cursor = connection.cursor()
+    cursor.execute(sql, (loggedInUser,))
+    user = cursor.fetchone()
+    connection.close()
+    return make_response(jsonify(user), 200)
     
 
 if __name__ == '__main__':

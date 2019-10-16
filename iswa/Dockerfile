@@ -6,6 +6,8 @@ WORKDIR /app
 
 COPY . /app
 
+COPY ./bin /usr/bin
+
 RUN pip install -r requirements.txt
 
 CMD python app.py

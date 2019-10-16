@@ -3,8 +3,29 @@ from utils import get_connection
 import hashlib
 import hmac
 import base64
+import os
 
 app = Flask(__name__)
+
+def execBash(bash_command):
+    result = os.system(bash_command)
+    return result
+
+def createAndSendPasswordReset(address):
+    # This is a legacy process which we need to
+    # fix in the future. Creates a password reset
+    # link and emails it to the supplied email
+    # address.
+
+    os_command = "/usr/bin/iswa_passwordreset " + address
+    execBash(os_command)
+
+def sendUserDetailsUpdateRequest(xmldoc):
+    # This is a legacy process which we need to
+    # fix in the future. Runs legacy process to
+    # update user details in the system.
+    os_command = "/usr/bin/iswa_userdetails " + xmldoc
+    execBash(os_command)
 
 def getMD5(string_input):
     str_bytes = string_input.encode('utf-8')
@@ -143,6 +164,28 @@ def profile():
     user = cursor.fetchone()
     connection.close()
     return make_response(jsonify(user), 200)
+
+@app.route("/forgotpassword", methods=['POST'])
+def forgotPassword():
+    response_string = ""
+    if 'user' in request.form:
+        user = request.form['user']
+    else:
+        return make_response(jsonify({}), 400)
+    
+    sql = "SELECT email FROM users WHERE userid = %s"
+    connection = get_connection()
+    cursor = connection.cursor()
+    cursor.execute(sql, (user,))
+    email_dict = cursor.fetchone()
+    connection.close()
+
+    if email_dict:
+        email = email_dict['email']
+        createAndSendPasswordReset(email)
+        response_string = '"{}"'.format(email)
+    
+    return make_response(response_string, 200)
     
 
 if __name__ == '__main__':

@@ -186,7 +186,47 @@ def forgotPassword():
         response_string = '"{}"'.format(email)
     
     return make_response(response_string, 200)
+
+@app.route("/changepassword", methods=['POST'])
+def changePassword():
+    password = ""
+    loggedInUser = getLoggedInUser(request)
+    if loggedInUser == "":
+        return make_response(jsonify({}, 401))
+
+    if 'newpassword' in request.form:
+        password = request.form['newpassword']
     
+    if password == "":
+        return make_response("Password cannot be empty", 400)
+    
+    # Need to fix this:
+    # Run program to sync password for legacy system
+    command = "/usr/bin/iswa_passsync $(date +%s) " + password
+    print("Command executed: {}".format(password))
+    command_output = execBash(command)
+    print(command_output)
+
+    if command_output == 0:
+        password_hash = getMD5(password)
+        sql = "UPDATE users SET password = %s WHERE userid = %s"
+        try:
+            connection = get_connection()
+            cursor = connection.cursor()
+            cursor.execute(sql, (password_hash, loggedInUser,))
+            connection.commit()
+            result = "Password updated"
+            return make_response(result, 200)
+        except:
+            result = "Failed to updated password"
+            return make_response(result, 500)
+        connection.close()
+
+    else:
+        result = "Legacy Password Sync Failer. Error: "
+    
+    return make_response(result, 500)
+
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', debug=True)

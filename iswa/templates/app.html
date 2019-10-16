@@ -1,0 +1,726 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+body {font-family: Verdana, Geneva, Tahoma, sans-serif; padding: 0; margin: 0;}
+
+a:visited{
+    color: #777;
+}
+.header {
+    
+    background-color: rgb(13, 131, 185);
+    padding: 8px;
+    margin-bottom: 12px;
+    
+}
+
+.header h1 {
+  color: #B5E2FA;
+}
+
+*{
+    box-sizing: border-box;
+}
+.w_container{
+    margin: 20px auto;
+    padding: 10px;
+    width: 480px;
+    /*height: 300px;*/
+    background-color: #fff;
+    border-radius: 5px;
+}
+    .w_h1{
+    width: 70%;
+    color: #777;
+    font-size: 32px;
+    margin: 14px auto;
+    margin-bottom: 20px;
+    text-align: center;
+    /*padding-top: 40px;*/
+}
+.w_form{
+    /*padding: 15px;*/
+    text-align: center;
+}
+input {
+    border-radius: 3px;
+    border: 2px solid transparent;
+    text-align: center;
+    font-size: 16px;
+    transition: border .2s, background-color .2s;
+
+}
+.table_messages_searchbox {
+    width: 70%;    
+}
+.d_input{
+    padding: 3px 0;
+    margin-bottom: 10px;
+    background-color: #ECF0F1;
+    border: 2px solid rgb(167, 173, 177);
+}
+.d_btn{
+    padding: 3px 6px;
+    margin-bottom: 10px;
+    background-color: #3498DB;
+    color: #fff;
+    line-height: 25px;
+    cursor: pointer;
+}
+.w_input{
+    padding: 12px 0;
+    margin-bottom: 10px;
+    width: 90%;
+}
+.w_form .field{
+    background-color: #ECF0F1;
+}
+.w_form .field:focus {
+    border: 2px solid #3498DB;
+}
+.w_form .btn{
+    background-color: #3498DB;
+    color: #fff;
+    line-height: 25px;
+    cursor: pointer;
+}
+.w_form .btn:hover,
+.w_form .btn:active {
+    background-color: #1F78B4;
+    border: 2px solid #1F78B4;
+}
+.pass-link{
+    text-align: center;
+    color:rgb(85, 113, 126);
+    font-size: 14px;
+}
+.pass-link a:link,
+.pass-link a:visited{
+    font-size: 12px;
+    color: #777;
+}
+/* Style the tab */
+.tab {
+  overflow: hidden;
+  border: 1px solid #ccc;
+  background-color: #f1f1f1;
+  border-radius: 5px;
+}
+
+/* Style the buttons inside the tab */
+
+#ui_loggedin {
+    margin: 20px auto;
+    padding: 10px;
+    width: 90%;
+    background-color: #fff;
+    border-radius: 5px;
+}
+.tab button {
+  background-color: inherit;
+  float: left;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  padding: 14px 16px;
+  transition: 0.3s;
+  font-size: 17px;
+}
+
+/* Change background color of buttons on hover */
+.tab button:hover {
+  background-color: #ddd;
+}
+
+/* Create an active/current tablink class */
+.tab button.active {
+  background-color: #ccc;
+}
+
+/* Style the tab content */
+.tabcontent {
+  display: none;
+  padding: 6px 12px 20px 12px;
+  border: 1px solid #ccc;
+  
+  border-radius: 5px;
+  margin-top: 8px;
+}
+
+.table_messages {
+    width: 100%;
+}
+.table_messages td:nth-child(1) {
+  width: 25%;
+}
+.table_messages td:nth-child(2) {
+  width: 50%;
+}
+.table_messages td:nth-child(3) {
+  width: 25%;
+}
+.table_messages th, td {
+    text-align: left;
+    padding: 3px;
+}
+.table_messages th {
+    background-color: #dddcdc;
+}
+.table_messages td {
+    background-color: #eeeeee;
+}
+.table_messages tr {
+    background-color: #fafafa;
+    border: 1px solid #ccc;
+  border-width: 1px 0;
+}
+table {
+    border-collapse: collapse;
+    border: 1px solid #ccc;
+  background-color: #f1f1f1;
+  border-radius: 5px;
+    padding: 5px;
+}
+/* Popup box BEGIN */
+.hover_bkgr_fricc{
+    background:rgba(0,0,0,.4);
+    cursor:pointer;
+    display:none;
+    height:100%;
+    position:fixed;
+    text-align:center;
+    top:0;
+    width:100%;
+    z-index:10000;
+}
+.hover_bkgr_fricc .helper{
+    display:inline-block;
+    height:100%;
+    vertical-align:middle;
+}
+.hover_bkgr_fricc > div {
+    background-color: #fff;
+    box-shadow: 10px 10px 60px #555;
+    display: inline-block;
+    height: auto;
+    max-height: 90%;
+    vertical-align: middle;
+    width: 90%;
+    position: relative;
+    border-radius: 8px;
+    padding: 15px 5%;
+}
+.popupCloseButton {
+    background-color: #fff;
+    border: 3px solid #999;
+    border-radius: 50px;
+    cursor: pointer;
+    display: inline-block;
+    font-family: arial;
+    font-weight: bold;
+    position: absolute;
+    top: -20px;
+    right: -20px;
+    font-size: 25px;
+    line-height: 30px;
+    width: 30px;
+    height: 30px;
+    text-align: center;
+}
+.popupCloseButton:hover {
+    background-color: #ccc;
+}
+.trigger_popup_fricc {
+    cursor: pointer;
+    font-size: 20px;
+    margin: 20px;
+    display: inline-block;
+    font-weight: bold;
+}
+/* Popup box BEGIN */
+.loader {
+  display: none;
+  background:rgba(0,0,0,.4);
+    height:100%;
+    position:fixed;
+    text-align:center;
+    top:0;
+    width:100%;
+    z-index:10000;
+  align-items : center;
+  justify-content: center;
+}
+.loader > div {
+    display: inline-block;
+    border: 16px solid #f3f3f3;
+  border-radius: 50%;
+  border-top: 16px solid #3498db;
+  width: 120px;
+  height: 120px;
+  
+  -webkit-animation: spin 2s linear infinite; /* Safari */
+  animation: spin 2s linear infinite;
+
+}
+/* Safari */
+@-webkit-keyframes spin {
+  0% { -webkit-transform: rotate(0deg); }
+  100% { -webkit-transform: rotate(360deg); }
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+</style>
+
+</head>
+<body onload="checkLoggedIn()">
+    
+    <div class="header">
+        <svg style="" width="440px" height="56px" viewBox="0 0 973 183" xmlns="http://www.w3.org/2000/svg">      
+            <rect width="100%" height="100%" fill="none"/>
+            <g class="currentLayer" style="">
+            <title>Layer 1</title>
+            <rect class="" width="992.75" height="195.14" fill="none"/>
+            <g class="">
+            <svg x="-16.951" y="-17.423" width="314" height="314" fill="rosybrown" stroke="black" stroke-width="1px" viewBox="0 0 485.2130126953125 485.2120056152344" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+            <path d="m54.246 123.47v-21.801c0-34.377 27.976-62.361 62.36-62.361 34.393 0 62.36 27.984 62.36 62.361v21.801c-10.003-4.5671-20.446-7.8851-31.181-10.108v-11.693c0-17.204-13.959-31.181-31.178-31.181-17.22 0-31.18 13.977-31.18 31.181v11.693c-10.726 2.2234-21.178 5.5413-31.18 10.108zm140.31 52.494c0 54.414-42.241 102.19-77.95 112.79-44.746-13.047-77.95-58.372-77.95-112.79 0-13.7 2.116-26.795 5.9757-38.974 44.381-26.308 99.562-26.308 143.94 0 3.8531 12.179 5.9835 25.274 5.9835 38.974zm-68.176 15.531c3.4716-2.8619 5.8154-7.0348 5.8154-11.877 0-8.6182-6.972-15.589-15.59-15.589-8.6171 0-15.589 6.9715-15.589 15.589 0 4.8422 2.3442 9.0145 5.8148 11.877l-5.8148 34.893h31.179l-5.8154-34.893z" fill="#b0e0e6" stroke="none"/>
+            </svg>
+            </g>
+            <g class="">
+            <svg x="438" y="423.7" width="273" height="273" fill="rosybrown" stroke="black" stroke-width="1px" viewBox="0 0 270 72" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"/>
+            </g>
+            <g class="">
+            <svg x="691" y="611.7" width="132" height="132" fill="rosybrown" stroke="black" stroke-width="1px" viewBox="0 0 324.1000061035156 72.50199890136719" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"/>
+            </g>
+            <g class="" transform="matrix(2.8017 0 0 2.8017 -1039.6 -318.62)" stroke-width="3">
+            <svg x="554.13" y="66.353" width="161" height="161" fill="rosybrown" stroke="black" stroke-width="1px" viewBox="0 0 324.1000061035156 72.50199890136719" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+            <g fill="none" fill-rule="evenodd" font-size="9pt" stroke="#000" stroke-linecap="round" stroke-width="3">
+            <path d="m51.5 8.1-4.2 7.3a12.049 12.049 0 0 0-1.301-1.29q-0.68-0.584-1.509-1.15a21.06 21.06 0 0 0-0.39-0.26 26.645 26.645 0 0 0-2.84-1.598 32.365 32.365 0 0 0-1.66-0.752 30.066 30.066 0 0 0-3.65-1.254 35.462 35.462 0 0 0-1.8-0.446q-2.95-0.65-6.15-0.65a35.281 35.281 0 0 0-4.317 0.246q-4.549 0.562-7.244 2.416a9.733 9.733 0 0 0-0.589 0.438 10.079 10.079 0 0 0-3.804 7.347 14.152 14.152 0 0 0-0.046 1.153 12.629 12.629 0 0 0 0.155 2.035q0.258 1.578 0.945 2.765a7.932 7.932 0 0 0 1.69 2.013 11.144 11.144 0 0 0 1.76 1.237 20.461 20.461 0 0 0 2.276 1.115q1.605 0.673 3.574 1.235a122.85 122.85 0 0 0 2.808 0.764q2.492 0.649 5.492 1.336 5.5 1.2 9.95 2.75t7.6 3.85 4.8 5.6q1.495 2.99 1.635 7.21a26.724 26.724 0 0 1 0.015 0.89 21.934 21.934 0 0 1-0.411 4.345 16.422 16.422 0 0 1-1.589 4.505q-2 3.75-5.45 6.2a22.119 22.119 0 0 1-5.267 2.73 27.533 27.533 0 0 1-2.883 0.87 40.108 40.108 0 0 1-6.513 1.014 48.87 48.87 0 0 1-3.687 0.136q-8.2 0-15.55-2.55t-13.35-7.45l4.3-7.6q1.6 1.7 4.15 3.4a31.285 31.285 0 0 0 3.461 1.989 38.589 38.589 0 0 0 2.339 1.061 41.755 41.755 0 0 0 5.383 1.805 47.885 47.885 0 0 0 1.617 0.395 35.081 35.081 0 0 0 7.084 0.843 39.086 39.086 0 0 0 0.766 7e-3 34.601 34.601 0 0 0 4.418-0.263q2.247-0.29 4.093-0.899a14.399 14.399 0 0 0 3.289-1.538q4.2-2.7 4.2-8.1a11.063 11.063 0 0 0-0.231-2.321 7.934 7.934 0 0 0-1.119-2.729 10.045 10.045 0 0 0-1.914-2.132 13.809 13.809 0 0 0-2.036-1.418q-2.233-1.288-5.388-2.318a43.951 43.951 0 0 0-1.062-0.332q-3.85-1.15-8.75-2.35a106.78 106.78 0 0 1-4.476-1.175q-2.208-0.635-4.145-1.31a62.627 62.627 0 0 1-0.879-0.315q-3.89-1.423-6.564-3.386a18.769 18.769 0 0 1-0.286-0.214q-2.75-2.1-4.15-5.1-1.315-2.818-1.395-6.695a24.555 24.555 0 0 1-5e-3 -0.505q0-5.1 1.9-9t5.3-6.6a21.964 21.964 0 0 1 5.559-3.183 26.852 26.852 0 0 1 2.541-0.867 34.832 34.832 0 0 1 6.841-1.218 41.937 41.937 0 0 1 3.359-0.132 40.697 40.697 0 0 1 7.255 0.621 32.474 32.474 0 0 1 5.745 1.579 36.863 36.863 0 0 1 9.009 4.889 34.307 34.307 0 0 1 1.291 1.011zm127.6 42.5v-31.3h8.8v29.6q0 15.562 10.5 15.988a14.786 14.786 0 0 0 0.6 0.012q5.4 0 10.15-3.45a19.84 19.84 0 0 0 6.271-7.637 24.479 24.479 0 0 0 0.779-1.813v-32.7h8.8v41.4a5.002 5.002 0 0 0 0.134 1.213q0.479 1.909 2.666 1.987v7.6q-1.5 0.2-2.35 0.25a28.445 28.445 0 0 1-1.449 0.05 25.903 25.903 0 0 1-0.201 0 7.188 7.188 0 0 1-2.173-0.315 5.948 5.948 0 0 1-2.177-1.235 5.425 5.425 0 0 1-1.447-1.981 5.432 5.432 0 0 1-0.403-1.869l-0.2-6.1a24.573 24.573 0 0 1-6.893 7.599 23.872 23.872 0 0 1-2.307 1.451q-5.7 3.15-12.5 3.15a19.407 19.407 0 0 1-5.058-0.62 13.342 13.342 0 0 1-7.342-4.88 17.616 17.616 0 0 1-2.64-5.12q-0.829-2.464-1.217-5.493a45.622 45.622 0 0 1-0.343-5.787zm-64.9-2.2h-43.3a21.407 21.407 0 0 0 0.894 4.764 18.541 18.541 0 0 0 0.906 2.336 18.515 18.515 0 0 0 3.172 4.76 17.362 17.362 0 0 0 0.728 0.74q2.4 2.3 5.45 3.6t6.45 1.3q2.4 0 4.7-0.65t4.3-1.75 3.55-2.7 2.35-3.6l7.6 2.1q-1.3 2.9-3.55 5.3t-5.2 4.15a26.2 26.2 0 0 1-5.223 2.349 30.179 30.179 0 0 1-1.327 0.401q-3.6 1-7.5 1-5.9 0-10.8-2.15t-8.4-5.85-5.45-8.65-1.95-10.45 1.95-10.4 5.5-8.6 8.45-5.85a25.757 25.757 0 0 1 8.444-2.061 30.813 30.813 0 0 1 2.356-0.089q5.9 0 10.75 2.2t8.25 5.85 5.25 8.5 1.85 10.05q0 1.1-0.05 2-0.041 0.742-0.116 1.212a4.939 4.939 0 0 1-0.034 0.188zm209.7 0h-43.3a21.407 21.407 0 0 0 0.894 4.764 18.541 18.541 0 0 0 0.906 2.336 18.515 18.515 0 0 0 3.172 4.76 17.362 17.362 0 0 0 0.728 0.74q2.4 2.3 5.45 3.6t6.45 1.3q2.4 0 4.7-0.65t4.3-1.75 3.55-2.7 2.35-3.6l7.6 2.1q-1.3 2.9-3.55 5.3t-5.2 4.15a26.2 26.2 0 0 1-5.223 2.349 30.179 30.179 0 0 1-1.327 0.401q-3.6 1-7.5 1-5.9 0-10.8-2.15t-8.4-5.85-5.45-8.65-1.95-10.45 1.95-10.4 5.5-8.6 8.45-5.85a25.757 25.757 0 0 1 8.444-2.061 30.813 30.813 0 0 1 2.356-0.089q5.9 0 10.75 2.2t8.25 5.85 5.25 8.5 1.85 10.05q0 1.1-0.05 2-0.041 0.742-0.116 1.212a4.939 4.939 0 0 1-0.034 0.188zm-154.7-17.3-8.6 2.7q-2-3.7-5.6-5.75a15.79 15.79 0 0 0-7.589-2.045 18.651 18.651 0 0 0-0.411-5e-3q-3.6 0-6.8 1.45t-5.5 4.05a19.581 19.581 0 0 0-3.252 5.134 22.631 22.631 0 0 0-0.398 0.966 20.268 20.268 0 0 0-1.255 5.518 24.515 24.515 0 0 0-0.095 2.182q0 4.1 1.4 7.7a21.361 21.361 0 0 0 2.438 4.593 19.002 19.002 0 0 0 1.312 1.657q2.35 2.65 5.5 4.15t6.75 1.5q2.3 0 4.55-0.65t4.1-1.75 3.25-2.55 2-3.15l8.6 2.6q-1.2 2.9-3.35 5.3t-5.05 4.1a26.522 26.522 0 0 1-4.928 2.229 30.814 30.814 0 0 1-1.522 0.471q-3.55 1-7.45 1a27.516 27.516 0 0 1-7.149-0.903 24.177 24.177 0 0 1-3.651-1.297 26.255 26.255 0 0 1-8.069-5.556 25.293 25.293 0 0 1-0.331-0.344q-3.5-3.7-5.45-8.65t-1.95-10.45 1.9-10.4 5.4-8.55 8.35-5.8a25.111 25.111 0 0 1 7.566-1.98 30.994 30.994 0 0 1 3.284-0.17 29.557 29.557 0 0 1 6.734 0.733 22.694 22.694 0 0 1 6.716 2.717q5.65 3.45 8.55 9.25zm98.1-12.1v8a24.416 24.416 0 0 0-6.935 1.175 21.128 21.128 0 0 0-4.715 2.225q-5.05 3.2-7.15 8.9v32.2h-8.8v-52.2h8.2v12.1a25.917 25.917 0 0 1 4.157-6.077 23.04 23.04 0 0 1 2.943-2.673 19.127 19.127 0 0 1 4.992-2.781 16.556 16.556 0 0 1 4.408-0.969h1.7a8.313 8.313 0 0 1 0.497 0.014q0.391 0.024 0.703 0.086zm-196.6 22.9h35.4a18.939 18.939 0 0 0-1.57-6.254 18.035 18.035 0 0 0-0.28-0.596q-1.55-3.15-3.9-5.35t-5.45-3.45-6.6-1.25-6.6 1.25-5.45 3.5-3.8 5.35a19.265 19.265 0 0 0-1.628 5.659 22.365 22.365 0 0 0-0.122 1.141zm209.7 0h35.4a18.939 18.939 0 0 0-1.57-6.254 18.035 18.035 0 0 0-0.28-0.596q-1.55-3.15-3.9-5.35t-5.45-3.45-6.6-1.25-6.6 1.25-5.45 3.5-3.8 5.35a19.265 19.265 0 0 0-1.628 5.659 22.365 22.365 0 0 0-0.122 1.141z" fill="#afeeee" stroke="#afeeee" stroke-width="3" vector-effect="non-scaling-stroke"/>
+            </g>
+            </svg>
+            </g>
+            <g class="" transform="matrix(2.753 0 0 2.753 -315.75 -203.46)" stroke-width="3">
+            <svg x="158" y="37.74" width="139" height="139" fill="rosybrown" stroke="black" stroke-width="1px" viewBox="0 0 270 72" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+            <g fill="none" fill-rule="evenodd" font-size="9pt" stroke="#000" stroke-linecap="round" stroke-width="3">
+            <path d="m69.9 39.8v31.2h-8.8v-29.2q0-7.238-1.893-11.06a10.034 10.034 0 0 0-0.657-1.14 8.293 8.293 0 0 0-6.041-3.688 12.532 12.532 0 0 0-1.709-0.112q-2.7 0-5.4 1.05t-5.1 2.85-4.2 4.3-2.7 5.5v31.5h-8.8v-52.2h8v11.2a22.82 22.82 0 0 1 8.408-8.486 27.242 27.242 0 0 1 0.542-0.314q5.85-3.3 12.75-3.3 3.709 0 6.399 1.121a11.307 11.307 0 0 1 1.101 0.529q3 1.65 4.8 4.6a18.598 18.598 0 0 1 1.804 3.985 24.046 24.046 0 0 1 0.746 2.965 43.542 43.542 0 0 1 0.642 5.239 54.141 54.141 0 0 1 0.108 3.461zm119.1 24.6 3.8-5.9a41.615 41.615 0 0 0 4.888 3.225 32.642 32.642 0 0 0 4.312 2.025q4.6 1.75 9.7 1.75 4.142 0 7.043-1.188a11.199 11.199 0 0 0 2.007-1.062 7.625 7.625 0 0 0 2.29-2.323q0.928-1.506 1.043-3.46a9.579 9.579 0 0 0 0.017-0.567 6.694 6.694 0 0 0-0.185-1.609 5.166 5.166 0 0 0-0.715-1.641q-0.9-1.35-2.7-2.35t-4.6-1.8a136.27 136.27 0 0 0-2.622-0.719q-1.348-0.356-2.855-0.73a238.69 238.69 0 0 0-1.023-0.251 179.66 179.66 0 0 1-3.342-0.886q-1.646-0.454-3.093-0.893a94.592 94.592 0 0 1-1.665-0.521 28.554 28.554 0 0 1-2.564-0.96q-1.243-0.539-2.268-1.15a15.151 15.151 0 0 1-0.768-0.49q-2.2-1.5-3.2-3.6a9.592 9.592 0 0 1-0.718-2.188q-0.282-1.365-0.282-3.012 0-3.9 1.55-6.95t4.25-5.1a18.258 18.258 0 0 1 4.478-2.472 22.109 22.109 0 0 1 1.872-0.628q3.65-1.05 7.85-1.05a32.363 32.363 0 0 1 8.068 0.982 29.096 29.096 0 0 1 2.932 0.918 30.301 30.301 0 0 1 4.967 2.357 24.07 24.07 0 0 1 3.633 2.643l-4 5.3q-3.3-2.9-7.4-4.35t-8.4-1.45a18.739 18.739 0 0 0-3.792 0.365 13.509 13.509 0 0 0-4.358 1.685 6.715 6.715 0 0 0-3.222 4.886 10.363 10.363 0 0 0-0.128 1.664q0 1.484 0.442 2.56a4.554 4.554 0 0 0 0.208 0.44q0.607 1.121 1.956 1.98a8.531 8.531 0 0 0 0.194 0.12q1.5 0.9 3.85 1.6a84.356 84.356 0 0 0 1.896 0.539q1.692 0.461 3.754 0.961a137.07 137.07 0 0 1 4.292 1.06q1.944 0.515 3.648 1.039a75.324 75.324 0 0 1 1.11 0.351q3.294 1.069 5.636 2.468a18.195 18.195 0 0 1 0.764 0.482 13.051 13.051 0 0 1 2.165 1.788 10.194 10.194 0 0 1 1.635 2.212 9.857 9.857 0 0 1 0.975 2.726q0.241 1.161 0.271 2.491a16.967 16.967 0 0 1 4e-3 0.383 15.308 15.308 0 0 1-0.997 5.625 13.834 13.834 0 0 1-4.603 5.975q-4.889 3.754-12.752 4.231a38.834 38.834 0 0 1-2.348 0.069q-6.3 0-12.4-1.95a32.642 32.642 0 0 1-6.882-3.074 27.952 27.952 0 0 1-3.618-2.576zm-5.4-16.5h-43.3a21.407 21.407 0 0 0 0.894 4.763 18.541 18.541 0 0 0 0.906 2.337 18.515 18.515 0 0 0 3.172 4.759 17.362 17.362 0 0 0 0.728 0.741q2.4 2.3 5.45 3.6t6.45 1.3q2.4 0 4.7-0.65t4.3-1.75 3.55-2.7 2.35-3.6l7.6 2.1q-1.3 2.9-3.55 5.3t-5.2 4.15a26.2 26.2 0 0 1-5.223 2.349 30.179 30.179 0 0 1-1.327 0.401q-3.6 1-7.5 1-5.9 0-10.8-2.15t-8.4-5.85-5.45-8.65-1.95-10.45 1.95-10.4 5.5-8.6 8.45-5.85a25.757 25.757 0 0 1 8.444-2.061 30.813 30.813 0 0 1 2.356-0.089q5.9 0 10.75 2.2t8.25 5.85 5.25 8.5 1.85 10.05q0 1.1-0.05 2-0.041 0.742-0.116 1.212a4.939 4.939 0 0 1-0.034 0.188zm-76.6 23.1h-9.4l-20.6-52.2h9.1l16.5 44.5 16.6-44.5h8.4l-20.6 52.2zm160.9-9.6 2.1 7a23.695 23.695 0 0 1-0.609 0.293q-0.638 0.296-1.491 0.657-1.3 0.55-2.95 1.1t-3.6 0.9a22.76 22.76 0 0 1-3.788 0.349 25.033 25.033 0 0 1-0.262 1e-3 14.574 14.574 0 0 1-4.604-0.705 12.685 12.685 0 0 1-3.696-1.945q-3.387-2.565-3.496-7.892a17.471 17.471 0 0 1-4e-3 -0.358v-35.1h-7.1v-6.9h7.1v-17.4h8.8v17.4h11.7v6.9h-11.7v32.4a8.35 8.35 0 0 0 0.261 1.619q0.457 1.677 1.639 2.581a6.319 6.319 0 0 0 3.644 1.292 7.899 7.899 0 0 0 0.356 8e-3 13.824 13.824 0 0 0 2.929-0.3 11.637 11.637 0 0 0 1.821-0.55q2.15-0.85 2.95-1.35zm-258.9 9.6h-9v-71h9v71zm131.1-29.6h35.4a18.939 18.939 0 0 0-1.57-6.255 18.035 18.035 0 0 0-0.28-0.595q-1.55-3.15-3.9-5.35t-5.45-3.45-6.6-1.25-6.6 1.25-5.45 3.5-3.8 5.35a19.265 19.265 0 0 0-1.628 5.658 22.365 22.365 0 0 0-0.122 1.142z" fill="#fffacd" stroke="#fffacd" stroke-width="3" vector-effect="non-scaling-stroke"/>
+            </g>
+            </svg>
+            </g>
+            </g>
+        </svg>            
+    </div>
+        
+    <div id="loginwidget" class="w_container">
+        <h1 class="w_h1">Login</h1>
+        <form class="w_form" action="#">
+            <input id="loginform_user" class="w_input field" type="text" placeholder="username">
+            <input id="loginform_pass" class="w_input field" type="password" placeholder="password">
+            <input class="w_input btn" type="submit" value="login" onClick="doLogin()">
+        </form>
+        <div class="pass-link">
+            <a href="#" onclick="showForgot()">Lost your password?</a>
+        </div>	
+    </div>
+
+    <div id="forgotwidget" class="w_container">
+        <h1 class="w_h1">Reset Your Password</h1>
+        <p>Enter Your Member ID and We Will Email You a Password Reset Link:</p>
+        <form class="w_form" action="#">
+            <input id="forgotform_user" class="w_input field" type="text" placeholder="username">
+            <input class="w_input btn" type="submit" value="reset password" onclick="doForgot()">
+        </form>
+        <div class="pass-link">
+            <a href="#" onclick="returnToLogin()">Return to Login Form</a>
+        </div>	
+    </div>
+    
+    <div id="ui_loggedin">    
+
+        <!--Tab Button Bar-->
+        <div class="tab">
+            <button id="link_Inbox" class="tablinks" onclick="showMessages();openTab(event, 'Inbox')">Inbox</button>
+            <button id="link_MyDetails" class="tablinks" onclick="showProfile();openTab(event, 'MyDetails')">My Details</button>
+            <button id="link_ChangePassword" class="tablinks" onclick="openTab(event, 'ChangePassword')">Change Password</button>
+            <button id="link_Help" class="tablinks" onclick="openTab(event, 'Help')">Help</button>
+        </div>
+
+
+        <div id="Inbox" class="tabcontent">
+        <h3>Your Messages</h3>
+        <p>Below is the list of messages you have received from InvestSecure. You can search within the body of your messages using the search box below. </p>
+        <form class="w_form" action="#" onsubmit="doSearch()">
+            <input id="search_input_box" class="d_input table_messages_searchbox" type="text" placeholder="Search Messages for Keywords">
+            <input class="d_btn" type="submit" value="Search">
+        </form>
+        <table id="messagelist" class="table_messages">
+            <tr><th>From</th><th>Subject</th><th>Date</th></tr>        
+            <!--dynamic HTML rows here-->
+        </table>
+        </div>
+
+        <div id="MyDetails" class="tabcontent">
+            <div id="detailswidget" class="w_container">
+                <h1 class="w_h1">My Details</h1>
+                <form class="w_form" action="#" method="POST">
+                    <input id="prof_id" type="hidden" value="0">
+                    <div class="pass-link">First Name</div>
+                    <input id="prof_fname" class="w_input field" type="text" value="John" disabled>
+                    <div class="pass-link">Last Name</div>
+                    <input id="prof_lname" class="w_input field" type="text" value="Smith" disabled>
+                    <div class="pass-link">Email Address</div>
+                    <input id="prof_email" class="w_input field" type="text" value="jsmith@test.com" >
+                    <div class="pass-link">Phone Number</div>
+                    <input id="prof_phone" class="w_input field" type="text" value="(02) 2312 3123" >
+                    <div class="pass-link">Street Address</div>
+                    <input id="prof_addr" class="w_input field" type="text" value="1 Smith Street" >
+                    <div class="pass-link">Postcode</div>
+                    <input id="prof_post" class="w_input field" type="text" value="1234" >
+                    <input class="w_input btn" type="button" value="Update Details" onclick="updateProfile()">
+                </form>
+                <div class="pass-link">
+                Please Contact Customer Service on 15 10 99 if You Wish to Update Other Details    
+                </div>	
+            </div> 
+        </div>
+
+        <div id="ChangePassword" class="tabcontent">
+            <div id="passwordwidget" class="w_container">
+                <h1 class="w_h1">Change Your Password</h1>
+                <p>Choose a Strong Password to Secure Your Account</p>
+                <form class="w_form" action="#" method="POST">
+                    <div class="pass-link">New Password</div>
+                    <input id="newpass_1" class="w_input field" type="password" placeholder="New Password">
+                    <div class="pass-link">Confirm Password</div>
+                    <input id="newpass_2" class="w_input field" type="password" placeholder="Confirm Password">
+                    <input class="w_input btn" type="button" value="Update" onclick="doChangePassword()">
+                </form>
+            </div> 
+        </div>
+    
+        <div id="Help" class="tabcontent">
+            <h3>Help</h3>
+            <p>If you have any questions or enquiries our friendly customer service team can help you. Just call 15 10 99.
+        </div>
+
+        <div class="pass-link">
+        <a href="javascript:logOut()">Log Me Out</a>
+        </div>
+
+</div><!--end ui_loggedin-->
+
+<div id="modalpopup" class="hover_bkgr_fricc">
+        <span class="helper"></span>
+        <div>
+            <div class="popupCloseButton" onclick="hidepopup()">X</div>
+            <div id="modalpopup_msg">
+            </div>
+        </div>
+    </div>
+
+<div id="ui_loader" class="loader"><div></div></div>
+
+<!---------------script section starts here---------------------->
+<script>
+
+function showErrorPage(error_message){
+    window.location = '/error?m='+encodeURIComponent(error_message);
+}
+
+function checkLoggedIn(){
+    if(window.localStorage.getItem('accesstoken')==null)
+        showLogin();
+    else
+        showLoggedinUI();
+}
+
+function logOut(){
+    window.localStorage.removeItem('accesstoken');
+    showLogin();
+}
+
+function openTab(evt, cityName) {
+    var i, tabcontent, tablinks;
+    tabcontent = document.getElementsByClassName("tabcontent");
+    for (i = 0; i < tabcontent.length; i++) {
+    tabcontent[i].style.display = "none";
+    }
+    tablinks = document.getElementsByClassName("tablinks");
+    for (i = 0; i < tablinks.length; i++) {
+    tablinks[i].className = tablinks[i].className.replace(" active", "");
+    }
+    document.getElementById(cityName).style.display = "block";
+    evt.currentTarget.className += " active";
+}
+
+var loadDiv = document.getElementById("ui_loader");
+var loginbox = document.getElementById("loginwidget");
+var loggedinbox = document.getElementById("ui_loggedin");
+var forgotbox = document.getElementById("forgotwidget");
+
+var msgList = [];
+var msgtable = document.getElementById("messagelist");
+
+function showLoader(){
+    loadDiv.style.display = "flex";
+}
+
+function hideLoader(){
+    loadDiv.style.display = "none";
+}
+
+function showLogin(){
+    loginbox.style.display = "block";
+    loggedinbox.style.display = "none";
+    forgotbox.style.display = "none";
+}
+
+function showForgot(){
+    forgotbox.style.display = "block";
+    loggedinbox.style.display = "none";
+    loginbox.style.display = "none";
+}
+
+function returnToLogin(){
+    loginbox.style.display = "block";
+    forgotbox.style.display = "none";
+    loggedinbox.style.display = "none";
+}
+
+function showLoggedinUI(){
+    loginbox.style.display = "none";
+    forgotbox.style.display = "none";
+    loggedinbox.style.display = "block";
+    document.getElementById('link_Inbox').click();
+}
+
+function doLogin(){
+    var f_username = document.getElementById("loginform_user").value;
+    var f_password = document.getElementById("loginform_pass").value;
+    sendRequest(
+        {
+            url:'/login',
+            method:'POST',
+            data:{user:f_username,password:f_password},
+            responseHandler: function(responseobj) {
+                console.log(responseobj)
+                if(responseobj != "") {
+                    window.localStorage.setItem('accesstoken', responseobj);
+                    showLoggedinUI();
+                }
+                else{
+                    showpopup("Invalid Login");
+                }
+        }}
+    );
+
+}
+
+function doForgot(){
+    var f_username = document.getElementById("forgotform_user").value;
+    sendRequest({url:'/forgotpassword',method:'POST',data:{user:f_username},
+        responseHandler:function (responseobj){
+            if(responseobj == ""){showpopup("Member ID Not Found");}
+            else{showpopup("An Email Has Been Sent to "+responseobj+" With A Link to Reset Your Password.");}
+        }});
+
+}
+
+function doChangePassword(){
+    var f_password1 = document.getElementById("newpass_1").value;
+    var f_password2 = document.getElementById("newpass_2").value;
+
+    var patt = /[a-zA-Z0-9]+/i;
+    var onlyAlphaNum = (f_password1.match(patt) == f_password1);
+
+    if(f_password1 != f_password2) {
+        showpopup("<b>Passwords Do Not Match</b>");
+        return false;
+    }
+    else if(!onlyAlphaNum || f_password1.length < 6) {
+        showpopup("<b>Password Must Be At Least 6 Characters and Only Contain Letters and Numbers</b>");
+        return false;
+    }
+    sendRequest({url:'/changepassword',method:'POST',data:{newpassword:f_password1},
+        responseHandler:function (responseobj){
+            if(responseobj == "success"){showpopup("Your Password Has Been Changed");}
+            else{showErrorPage(responseobj);}
+        }});
+
+}
+
+function showMessages(){
+    sendRequest({url:'/home',method:'GET',data:{},
+        responseHandler:function (responseobj){
+            msgList = [];
+            if(responseobj.length > 0){
+                responseobj.forEach(function(v,i,a){
+                    sentdate = v["sent"].split(" ")[0];
+                    msgList.push({id:v["messageid"],from:v["sender"],subject:v["subject"],date:sentdate});
+                });
+            }
+            updateMessageTable();
+        }});
+}
+
+function doSearch(){
+    var keyword_text = document.getElementById("search_input_box").value;
+    if(keyword_text == '')
+        return;
+    sendRequest({url:'/search',method:'GET',data:{"keyword":keyword_text},
+        responseHandler:function (responseobj){
+            msgList = [];
+            if(responseobj.length > 0){
+                responseobj.forEach(function(v,i,a){
+                    sentdate = v["sent"].split(" ")[0];
+                    msgList.push({id:v["messageid"],from:v["sender"],subject:v["subject"],date:sentdate});
+                    updateMessageTable();
+                });
+            }
+            else{
+              showpopup("<b>No Results</b>");
+            }
+        }});
+}
+
+function showMessageDetail(msg_id){
+
+    sendRequest({url:'/details',method:'GET',data:{messageid:msg_id},
+        responseHandler:function (responseobj){
+            msgObj = responseobj;
+            messageHtml = "<div style='width:100%;float:left;'>"+
+            "<table style='width:100%;border:1px solid;border-radius: 5px;'>"+
+            "<tr><td>From:</td><td>"+msgObj["sender"]+"</td></tr>"+
+            "<tr><td>Received:</td><td>"+msgObj["sent"].split(" ")[0]+"</td></tr>"+
+            "</table></div>"+
+            "<div style='clear:both;'>"+
+            "<div style='height: 1px;clear:both;'></div>"+
+            "<div style='width:100%;text-align:left;'>"+
+            "<h3>"+msgObj["subject"]+"</h3></div>"+
+            "<div style='width:100%;text-align:left;'>"+msgObj["content"]+"</div>";
+            showpopup(messageHtml);
+        }});
+}
+
+function showProfile(){
+
+    sendRequest({url:'/profile',method:'GET',data:{},
+        responseHandler:function (responseobj){
+            msgObj = responseobj;
+            document.getElementById("prof_id").value = msgObj["userid"];
+            document.getElementById("prof_fname").value = msgObj["firstname"];
+            document.getElementById("prof_lname").value = msgObj["lastname"];
+            document.getElementById("prof_email").value = msgObj["email"];
+            document.getElementById("prof_phone").value = msgObj["phone"];
+            document.getElementById("prof_addr").value = msgObj["address"];
+            document.getElementById("prof_post").value = msgObj["postcode"];
+        }});
+}
+
+function xmlFieldHelper(fieldname){
+    var rawStr = document.getElementById(fieldname).value;
+    var encodedStr = rawStr.replace(/[\u00A0-\u9999<>#\&\'\"]/g, function(i) {
+        return '&#'+i.charCodeAt(0)+';';
+    });
+    return encodedStr;
+}
+
+function updateProfile(){
+
+    var xml = '<?xml version="1.0" ?>';
+    xml += '<user>' +
+    '<userid>'+xmlFieldHelper("prof_id")+'</userid>'+
+    '<firstname>'+xmlFieldHelper("prof_fname")+'</firstname>'+
+    '<lastname>'+xmlFieldHelper("prof_lname")+'</lastname>'+
+    '<email>'+xmlFieldHelper("prof_email")+'</email>'+
+    '<phone>'+xmlFieldHelper("prof_phone")+'</phone>'+
+    '<address>'+xmlFieldHelper("prof_addr")+'</address>'+
+    '<postcode>'+xmlFieldHelper("prof_post")+'</postcode>'+
+    '</user>';
+    sendRequest({url:'/updateprofile',method:'POST',data:{xmlrequest:xml},
+    responseHandler:function (responseobj){
+        showpopup("<b>Your request to update your personal details has been received. The requested changes will be updated here after they have been processed by our customer service team.<p>Please allow up to 48 hours for the changes to be reflected here. Contact us on 15 10 99 if you wish to change other details.</p></b>");
+    }});
+}
+
+function showpopup(htmlMsg) {
+    var msg = document.getElementById("modalpopup_msg");
+    msg.innerHTML = htmlMsg;
+    var popup = document.getElementById("modalpopup");
+    popup.style.display = 'block';
+}
+
+function hidepopup() {
+ var popup = document.getElementById("modalpopup");
+  popup.style.display = 'none';
+}
+
+function updateMessageTable() {
+ var rowCount = msgtable.rows.length; while(--rowCount) msgtable.deleteRow(rowCount);
+ msgList.forEach(addMessageRow);
+}
+
+function addMessageRow(msgObject){
+    var sender = msgObject.from;
+    var subject = msgObject.subject;
+    var date = msgObject.date;
+    var msgId = msgObject.id;
+    var row = msgtable.insertRow(-1);
+    var cell1 = row.insertCell(0);
+    var cell2 = row.insertCell(1);
+    var cell3 = row.insertCell(2);
+    cell1.innerHTML = sender;
+    cell2.innerHTML = '<a href="#" onclick="showMessageDetail('+msgId+')">'+subject+'</a>';
+    cell3.innerHTML = date;
+}
+
+function sendRequest(requestObject){
+    showLoader();
+
+    var XHR = new XMLHttpRequest();
+	var params = "";
+    var rdata = requestObject.data;
+    var token = window.localStorage.getItem('accesstoken');
+
+    var k = Object.keys(rdata);
+
+    k.forEach(function(v,i,a){
+        if(params.length) params += "&";
+        params += encodeURIComponent(v)+"="+encodeURIComponent(rdata[v]);
+    });
+
+    if(requestObject.method == 'GET')
+        requestObject.url = requestObject.url+"?"+params;
+
+    XHR.open(requestObject.method, requestObject.url);
+    if(token)
+        XHR.setRequestHeader('x-access-token', token);
+    if(requestObject.method == 'POST')
+        XHR.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+
+    XHR.onreadystatechange = function() { // Call a function when the state changes.
+
+        hideLoader();
+
+        if (this.readyState === XMLHttpRequest.DONE && this.status === 401) {
+            showLogin();
+        }
+        else if (this.readyState === XMLHttpRequest.DONE && this.status === 500) {
+            robj = JSON.parse(XHR.responseText);
+            showErrorPage(robj);
+        }
+        else if (this.readyState === XMLHttpRequest.DONE && this.status === 200) {
+            robj = JSON.parse(XHR.responseText);
+            requestObject.responseHandler(robj);
+        }
+    }
+
+    XHR.send(params);
+}
+</script>
+   
+</body>
+</html> 

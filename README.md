@@ -31,6 +31,7 @@ docker-compose up
 ## Usage
 
 - Once the project comes up you can view the web application on http://localhost:5000
+- For code review, all the applications API endpoints are defined in `iswa/app.py`
 
 ## Vulnerabilities
 

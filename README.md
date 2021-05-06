@@ -5,7 +5,7 @@ A Python port of the Invest Secure Web Application (ISWA). ISWA is an intentiona
 ## Installation
 
 ```
-https://github.com/Shreda/ISWA-Python.git
+git clone https://github.com/Shreda/ISWA-Python.git
 cd ISWA-Python
 docker-compose up
 ```

@@ -2,6 +2,17 @@
 
 A Python port of the Invest Secure Web Application (ISWA). ISWA is an intentionally vulnerable web application used for demontration and teaching purposes.
 
+## Recommended Tools
+
+- A password cracking tool
+    - https://hashcat.net/hashcat/
+    - https://www.openwall.com/john/
+- Wordlists
+    - https://github.com/danielmiessler/SecLists
+- A HTTP Proxy / Testing tool
+    - https://owasp.org/www-project-zap/
+    - https://portswigger.net/burp/communitydownload
+
 ## Dependencies
 
 - Works on Linux and MacOS
